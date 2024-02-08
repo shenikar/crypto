@@ -64,7 +64,7 @@ func main() {
 	interval := 10 * time.Minute
 
 	for {
-		fmt.Print("Введите символ криптовалюты (например, btc): ")
+		fmt.Print("Введите символ криптовалюты (например, btc), если хотите весь список криптовалют нажмите Enter: ")
 		scanner := bufio.NewScanner(os.Stdin)
 		scanner.Scan()
 		symbolToFind := strings.TrimSpace(scanner.Text())

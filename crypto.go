@@ -56,7 +56,7 @@ func getSpecificCoinData(currency string, symbol string) (*CoinData, error) {
 		}
 	}
 
-	return nil, fmt.Errorf("Криптовалюта с символом %s не найдена", symbol)
+	return nil, fmt.Errorf("криптовалюта с символом %s не найдена", symbol)
 }
 
 func main() {
@@ -64,22 +64,27 @@ func main() {
 	interval := 10 * time.Minute
 
 	for {
-		// Запрос пользователя для ввода символа криптовалюты
 		fmt.Print("Введите символ криптовалюты (например, btc): ")
 		scanner := bufio.NewScanner(os.Stdin)
 		scanner.Scan()
 		symbolToFind := strings.TrimSpace(scanner.Text())
 
 		if symbolToFind == "" {
-			fmt.Println("Символ не может быть пустым. Попробуйте еще раз.")
-			continue
-		}
-
-		coin, err := getSpecificCoinData(currency, symbolToFind)
-		if err != nil {
-			fmt.Printf("Ошибка при получении данных: %s\n", err)
+			coinData, err := getCoinData(currency)
+			if err != nil {
+				fmt.Printf("Ошибка при получении данных: %s\n", err)
+			} else {
+				for _, coin := range coinData {
+					fmt.Printf("%s (%s): $%.2f\n", coin.Name, coin.Symbol, coin.CurrentPrice)
+				}
+			}
 		} else {
-			fmt.Printf("%s (%s): $%.2f\n", coin.Name, coin.Symbol, coin.CurrentPrice)
+			coin, err := getSpecificCoinData(currency, symbolToFind)
+			if err != nil {
+				fmt.Printf("Ошибка при получении данных: %s\n", err)
+			} else {
+				fmt.Printf("%s (%s): $%.2f\n", coin.Name, coin.Symbol, coin.CurrentPrice)
+			}
 		}
 
 		time.Sleep(interval)

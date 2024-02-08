@@ -41,5 +41,5 @@ go build crypto.go
 
 ## Автор
 
-#### Автор: Ишматов Ильфар
-#### Контакт: ishmatov.ilfar@gmail.com
+- Автор: Ишматов Ильфар
+- Контакт: ishmatov.ilfar@gmail.com
